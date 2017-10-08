@@ -1,5 +1,7 @@
 package com.cang.blog.util;
 
+import com.cang.blog.model.BlogUser;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Json Web Token 工具类
@@ -48,5 +51,58 @@ public class JwtTokenUtil {
                 .compact();
 
         return compactJwt;
+    }
+
+    /**
+     * 验证用户Token是否有效
+     *
+     * @param token
+     * @param user
+     * @return
+     */
+    public boolean validateToken(String token, BlogUser user) {
+
+        final String username = getUsernameFromToken(token);
+        final Date created = getIssuedAtDateFromToken(token);
+
+        //final Date expiration = getExpirationDateFromToken(token);
+        return (
+                username.equals(user.getUserName())
+                        && !isTokenExpired(token)
+                        && !isCreatedBeforeLastPasswordReset(created, user.getModifyTime())
+        );
+    }
+
+    private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
+        return (lastPasswordReset != null && created.before(lastPasswordReset));
+    }
+
+    public Date getIssuedAtDateFromToken(String token) {
+        return getClaimFromToken(token, Claims::getIssuedAt);
+    }
+
+    private Boolean isTokenExpired(String token) {
+        final Date expiration = getExpirationDateFromToken(token);
+        return expiration.before(DateUtil.now());
+    }
+
+    public Date getExpirationDateFromToken(String token) {
+        return getClaimFromToken(token, Claims::getExpiration);
+    }
+
+    public String getUsernameFromToken(String token) {
+        return getClaimFromToken(token, Claims::getSubject);
+    }
+
+    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

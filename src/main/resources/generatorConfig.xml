@@ -91,7 +91,7 @@
         <!-- <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
         <!-- </table>-->
         <table tableName="blog_user" domainObjectName="BlogUser"/>
-        <table tableName="blog_event" domainObjectName="BlogEvent"/>
+        <table tableName="blog_todolist" domainObjectName="BlogTodolist"/>
 
     </context>
 </generatorConfiguration>

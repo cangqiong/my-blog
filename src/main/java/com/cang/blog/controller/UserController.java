@@ -2,7 +2,6 @@ package com.cang.blog.controller;
 
 import com.cang.blog.mapper.BlogUserMapper;
 import com.cang.blog.model.BlogUser;
-import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,8 @@ import java.util.List;
  * @date 2017-10-07
  */
 @RestController
-public class UserTestController {
+@RequestMapping("/user")
+public class UserController {
 
     @Autowired
     private BlogUserMapper blogUserMapper;
@@ -26,7 +26,7 @@ public class UserTestController {
      *
      * @return
      */
-    @RequestMapping(value = "/user/add")
+    @RequestMapping(value = "/add")
     public boolean addUser() {
         BlogUser user = new BlogUser();
         user.setUserName("test");
@@ -40,7 +40,7 @@ public class UserTestController {
      *
      * @return
      */
-    @RequestMapping(value = "/user/update")
+    @RequestMapping(value = "/update")
     public boolean updateUser() {
 
         BlogUser user = new BlogUser();
@@ -55,7 +55,7 @@ public class UserTestController {
      *
      * @return
      */
-    @RequestMapping(value = "/user/delete")
+    @RequestMapping(value = "/delete")
     public boolean deleteUser() {
 
         BlogUser user = new BlogUser();
@@ -69,7 +69,7 @@ public class UserTestController {
      *
      * @return
      */
-    @RequestMapping(value = "/user/queryAll")
+    @RequestMapping(value = "/queryAll")
     public List<BlogUser> queryAllUser() {
 
         return blogUserMapper.selectAll();
@@ -80,7 +80,7 @@ public class UserTestController {
      *
      * @return
      */
-    @RequestMapping(value = "/user/queryById")
+    @RequestMapping(value = "/queryById")
     public BlogUser queryUser() {
         BlogUser user = new BlogUser();
         user.setId(1);

@@ -1,6 +1,6 @@
 package com.cang.blog.bean;
 
-import com.cang.blog.constant.CodeConstantEnum;
+import com.cang.blog.constant.SystemConstantEnum;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author cang
  * @date 2017-10-08
  */
-public class BasicRes<T> implements Serializable {
+public class ResultBean<T> implements Serializable {
 
     private static final long serialVersionUID = 9166790951642352943L;
 
@@ -20,14 +20,14 @@ public class BasicRes<T> implements Serializable {
 
     private T data;
 
-    public BasicRes() {
-        this.code = CodeConstantEnum.SUCCESS.getCode();
-        this.msg = CodeConstantEnum.SUCCESS.getMsg();
+    public ResultBean() {
+        this.code = SystemConstantEnum.SUCCESS.getCode();
+        this.msg = SystemConstantEnum.SUCCESS.getMsg();
     }
 
-    public BasicRes(T data) {
-        this.code = CodeConstantEnum.SUCCESS.getCode();
-        this.msg = CodeConstantEnum.SUCCESS.getMsg();
+    public ResultBean(T data) {
+        this.code = SystemConstantEnum.SUCCESS.getCode();
+        this.msg = SystemConstantEnum.SUCCESS.getMsg();
         this.data = data;
     }
 

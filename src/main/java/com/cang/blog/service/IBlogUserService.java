@@ -1,5 +1,6 @@
 package com.cang.blog.service;
 
+import com.cang.blog.exception.UserNotFoundException;
 import com.cang.blog.model.BlogUser;
 
 /**
@@ -14,5 +15,5 @@ public interface IBlogUserService {
 
     BlogUser findByUserId(int userId);
 
-    String validate(String username, String password);
+    String validate(String username, String password) throws UserNotFoundException;
 }

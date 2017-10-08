@@ -2,12 +2,9 @@ package com.cang.blog.controller;
 
 import com.cang.blog.bean.UserLoginReq;
 import com.cang.blog.bean.UserLoginRes;
-import com.cang.blog.constant.CodeConstantEnum;
-import com.cang.blog.mapper.BlogUserMapper;
-import com.cang.blog.model.BlogUser;
+import com.cang.blog.constant.SystemConstantEnum;
 import com.cang.blog.service.IBlogUserService;
 import com.cang.blog.util.JwtTokenUtil;
-import com.sun.tools.javac.jvm.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * 用户登录控制器
@@ -24,8 +20,9 @@ import java.util.List;
  * @author cang
  * @date 2017-10-07
  */
-@RestController("/user")
-public class UserLoginController {
+@RestController
+@RequestMapping("/login")
+public class LoginController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -38,7 +35,7 @@ public class UserLoginController {
      *
      * @return
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public UserLoginRes login(@RequestBody @Valid UserLoginReq userLoginReq) {
 
         UserLoginRes userLoginRes = new UserLoginRes();
@@ -52,7 +49,7 @@ public class UserLoginController {
             userLoginRes.setData(token);
         } else {
             userLoginRes.setMsg(error);
-            userLoginRes.setCode(CodeConstantEnum.getCodeByMsg(error));
+            userLoginRes.setCode(SystemConstantEnum.getCodeByMsg(error));
         }
 
         return userLoginRes;
