@@ -1,9 +1,10 @@
 # Eclipse file
+/target/
 .classpath
 .project
 .settings
 
-# IntelliJ IDEA 
+# IntelliJ IDEA
 .idea
 *.iws
 *.iml
@@ -25,3 +26,4 @@
 *.zip
 *.tar.gz
 *.rar
+
