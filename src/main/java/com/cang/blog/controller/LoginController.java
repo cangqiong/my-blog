@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -30,23 +33,37 @@ public class LoginController {
     @Autowired
     private IBlogUserService blogUserService;
 
+    @RequestMapping("/setcookie")
+    public String setCookie(HttpServletResponse response, HttpServletRequest request) {
+        Cookie cookie1 = new Cookie("cookie1", "value1");
+        cookie1.setMaxAge(1800);
+        Cookie cookie2 = new Cookie("cookie2", "value2");
+        cookie2.setMaxAge(3600);
+        cookie1.setPath(request.getContextPath());
+        response.addCookie(cookie1);
+        response.addCookie(cookie2);
+        return "cookie set ok";
+    }
+
     /**
      * 用户登录
      *
      * @return
      */
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public UserLoginRes login(@RequestBody @Valid UserLoginReq userLoginReq) {
+    public UserLoginRes login(@RequestBody @Valid UserLoginReq userLoginReq, HttpServletRequest request, HttpServletResponse response) {
 
         UserLoginRes userLoginRes = new UserLoginRes();
 
         String error = blogUserService.validate(userLoginReq.getUsername(), userLoginReq.getPassword());
-
         // 登录成功
         if (StringUtils.isEmpty(error)) {
             // 生成JWT的Token
             String token = jwtTokenUtil.generateToken(userLoginReq.getUsername());
             userLoginRes.setData(token);
+
+            // 登录成功设置cookie
+            response.addCookie(getJwtCookie(userLoginReq.getUsername(), token));
         } else {
             userLoginRes.setMsg(error);
             userLoginRes.setCode(SystemConstantEnum.getCodeByMsg(error));
@@ -54,5 +71,40 @@ public class LoginController {
 
         return userLoginRes;
     }
+
+    private Cookie getJwtCookie(String username, String token) {
+
+        Cookie cookie = new Cookie("jwtToken", token);
+        //设置cookie的过期时间是5min
+        cookie.setMaxAge(5 * 60);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/todolist");
+        return cookie;
+    }
+
+//    /**
+//     * 用户登录
+//     *
+//     * @return
+//     */
+//    @RequestMapping(value = "/auth", method = RequestMethod.POST)
+//    public UserLoginRes login(@RequestBody @Valid UserLoginReq userLoginReq) {
+//
+//        UserLoginRes userLoginRes = new UserLoginRes();
+//
+//        String error = blogUserService.validate(userLoginReq.getUsername(), userLoginReq.getPassword());
+//
+//        // 登录成功
+//        if (StringUtils.isEmpty(error)) {
+//            // 生成JWT的Token
+//            String token = jwtTokenUtil.generateToken(userLoginReq.getUsername());
+//            userLoginRes.setData(token);
+//        } else {
+//            userLoginRes.setMsg(error);
+//            userLoginRes.setCode(SystemConstantEnum.getCodeByMsg(error));
+//        }
+//
+//        return userLoginRes;
+//    }
 
 }

@@ -105,6 +105,11 @@ public class BlogTodolistService implements IBlogTodolistService {
         return queryResult;
     }
 
+    @Override
+    public BlogTodolist queryById(Integer listId) {
+        return blogTodolistMapper.selectByPrimaryKey(listId);
+    }
+
     /**
      * 获取该用户下的所有TodoList的总数
      *

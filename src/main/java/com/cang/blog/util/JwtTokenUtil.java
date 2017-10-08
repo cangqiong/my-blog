@@ -47,8 +47,11 @@ public class JwtTokenUtil {
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .setExpiration(calculateExpirationDate(createdDate))
 //                .setAudience()
-                .setClaims(claims)
+//                .setClaims(claims)
                 .compact();
+
+//        Jwts.builder().signWith(SignatureAlgorithm.HS256,
+//                "61c5fd4007060fd9ed41fc6f2a155a3a47629b9e9b83d75d1c0d97ebb177fa83").compact();
 
         return compactJwt;
     }

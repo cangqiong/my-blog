@@ -23,4 +23,5 @@ public interface IBlogTodolistService {
 
     QueryResult<BlogTodolist> query(String userName, PageReq pageReq) throws UserNotFoundException;
 
+    BlogTodolist queryById(Integer listId);
 }

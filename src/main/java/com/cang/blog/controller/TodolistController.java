@@ -6,12 +6,10 @@ import com.cang.blog.model.BlogTodolist;
 import com.cang.blog.service.IBlogTodolistService;
 import com.cang.blog.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * TodoList控制器
@@ -75,6 +73,19 @@ public class TodolistController {
         ResultBean<QueryResult<BlogTodolist>> basicRes = new ResultBean<>();
 
         QueryResult<BlogTodolist> queryResult = todolistService.query(queryTodoListReq.getUserName(), queryTodoListReq.getPageReq());
+
+        basicRes.setData(queryResult);
+
+        return basicRes;
+    }
+
+    @RequestMapping(value = "/query/{listId}", method = RequestMethod.GET)
+    @Authorization
+    public ResultBean<BlogTodolist> queryTodoList(@NotNull @PathVariable("listId")Integer listId) throws Exception {
+
+        ResultBean<BlogTodolist> basicRes = new ResultBean<>();
+
+        BlogTodolist queryResult = todolistService.queryById(listId);
 
         basicRes.setData(queryResult);
 
