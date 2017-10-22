@@ -81,7 +81,7 @@ public class TodolistController {
 
     @RequestMapping(value = "/query/{listId}", method = RequestMethod.GET)
     @Authorization
-    public ResultBean<BlogTodolist> queryTodoList(@NotNull @PathVariable("listId")Integer listId) throws Exception {
+    public ResultBean<BlogTodolist> queryTodoList(@NotNull @PathVariable("listId") Integer listId) throws Exception {
 
         ResultBean<BlogTodolist> basicRes = new ResultBean<>();
 

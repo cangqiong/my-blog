@@ -5,8 +5,6 @@ import com.cang.blog.bean.QueryResult;
 import com.cang.blog.exception.UserNotFoundException;
 import com.cang.blog.model.BlogTodolist;
 
-import java.util.List;
-
 /**
  * TodoList服务接口类
  *

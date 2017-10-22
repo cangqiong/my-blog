@@ -11,6 +11,6 @@
     </resultMap>
 
     <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
-      SELECT * FROM blog_user WHERE user_name = #{userName}
+        SELECT * FROM blog_user WHERE user_name = #{userName}
     </select>
 </mapper>

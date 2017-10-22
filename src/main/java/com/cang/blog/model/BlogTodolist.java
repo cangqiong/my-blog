@@ -1,6 +1,8 @@
 package com.cang.blog.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "blog_todolist")
 public class BlogTodolist {
