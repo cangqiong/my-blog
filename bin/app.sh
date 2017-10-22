@@ -86,7 +86,7 @@ start() {
       echo "================================"
    else
       echo -n "Starting $APP_NAME ..."
-	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE > $LOG_PATH/$APP_NAME+$(date "+_%Y-%m-%d").log 2>&1 &
+	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE > $LOG_PATH/$APP_NAME+"_"$(date "+%Y-%m-%d").log 2>&1 &
       checkpid
       if [ $psid -ne 0 ]; then
          echo "(pid=$psid) [OK]"
