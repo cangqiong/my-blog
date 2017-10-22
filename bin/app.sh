@@ -37,6 +37,9 @@ RUNNING_USER=root
 #需要启动的Java主程序（main方法类）
 APP_MAINCLASS=
 
+#需要启动的Java主程序（main方法类）
+COMMAND=
+
 #java虚拟机启动参数
 JAVA_OPTS="-Xmx1024m -XX:PermSize=512m -XX:MaxPermSize=1024m -Djava.awt.headless=true"
 
@@ -86,7 +89,8 @@ start() {
       echo "================================"
    else
       echo -n "Starting $APP_NAME ..."
-	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE > $LOG_PATH/$APP_NAME+'_%Y-%m-$d'.log 2>&1 &
+      COMMAND = $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE
+	  nohup $COMMAND > $LOG_PATH/$APP_NAME+'_%Y-%m-$d'.log 2>&1 &
       checkpid
       if [ $psid -ne 0 ]; then
          echo "(pid=$psid) [OK]"
