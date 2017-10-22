@@ -91,10 +91,8 @@ start() {
       sleep 5s
       checkpid
       if [ $psid -ne 0 ]; then
-         echo "启动成功"
          echo "(pid=$psid) [OK]"
       else
-         echo "启动失败"
          echo "[Failed]"
       fi
    fi
