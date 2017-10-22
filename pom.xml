@@ -167,6 +167,7 @@
     </dependencies>
 
     <build>
+        <!-- 指定打包名称 -->
         <finalName>my-blog</finalName>
         <plugins>
             <plugin>
