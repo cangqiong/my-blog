@@ -58,9 +58,10 @@ checkpid() {
 #5. 如果步骤4的结果能够确认程序的pid,则打印[OK]，否则打印[Failed]
 #注意：echo -n 表示打印字符后，不换行
 ###################################
-deploy(){
-   echo "本地打包代码"
-   mvn clean package && cp target/"$APP_NAME".jar "$APP_HOME"/$APP_NAME.jar
+moveExecuteFile(){
+   echo "移动文件到执行目录"
+#   mvn clean package && cp target/"$APP_NAME".jar "$APP_HOME"/$APP_NAME.jar
+    cp target/"$APP_NAME".jar "$APP_HOME"/$APP_NAME.jar
 }
 
 ###################################
@@ -162,8 +163,8 @@ info() {
 #如参数不在指定范围之内，则打印帮助信息
 ###################################
 case "$1" in
-   'deploy')
-     deploy
+   'move')
+     moveExecuteFile
      ;;
    'start')
       start
