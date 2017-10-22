@@ -14,7 +14,13 @@ JAVA_HOME=/usr/local/java/jdk1.8.0_144
 PROJECT_NAME=blog-project
 
 # 设置应用名称
-APP_NAME=dfdf
+APP_NAME=my-blog
+
+# 配置文件路径
+CONFIG_FILE_PATH=/appdata/app/"$PROJECT_NAME"/config
+
+# 配置文件
+CONFIG_FILE=application-dev.properties
 
 # 临时代码目录，用来修改配置文件和编译打包代码
 TMP_DIR=/appdata/tmp/"$PROJECT_NAME"
@@ -52,7 +58,7 @@ checkpid() {
 #5. 如果步骤4的结果能够确认程序的pid,则打印[OK]，否则打印[Failed]
 #注意：echo -n 表示打印字符后，不换行
 ###################################
-tar_pro(){
+deploy(){
    echo "本地打包代码"
    mvn clean package && cp target/"$APP_NAME".jar "$APP_HOME"/$APP_NAME.jar
 }
@@ -76,7 +82,7 @@ start() {
       echo "================================"
    else
       echo -n "Starting $APP_NAME ..."
-	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar &
+	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE &
       checkpid
       if [ $psid -ne 0 ]; then
          echo "(pid=$psid) [OK]"
@@ -156,6 +162,9 @@ info() {
 #如参数不在指定范围之内，则打印帮助信息
 ###################################
 case "$1" in
+   'deploy')
+     deploy
+     ;;
    'start')
       start
       ;;
