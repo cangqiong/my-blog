@@ -37,11 +37,11 @@ public class BlogUserService implements IBlogUserService {
             throw new UserNotFoundException(SystemConstantEnum.USER_NOT_FOUND.getCode(), username);
         }
 
-        if (password == null || user.getPassword().equals(password)) {
+        if (password == null || !user.getPassword().equals(password)) {
             return SystemConstantEnum.PASS_NOT_CORRECT.getMsg();
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     @Override
