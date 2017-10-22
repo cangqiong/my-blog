@@ -17,16 +17,19 @@ PROJECT_NAME=blog-project
 APP_NAME=my-blog
 
 # 配置文件路径
-CONFIG_FILE_PATH=/appdata/app/"$PROJECT_NAME"/config
+CONFIG_FILE_PATH=/appdata/"$PROJECT_NAME"/config
 
 # 配置文件
 CONFIG_FILE=application-dev.properties
 
+# 日志目录
+LOG_PATH=/applog/"${PROJECT_NAME}"
+
 # 临时代码目录，用来修改配置文件和编译打包代码
-TMP_DIR=/appdata/tmp/"$PROJECT_NAME"
+TMP_DIR=/tmp/"$PROJECT_NAME"
 
 # 用来存放项目jar文件
-APP_HOME=/appdata/app/"$PROJECT_NAME"
+APP_HOME=/appdata/"$PROJECT_NAME"
 
 #执行程序启动所使用的系统用户，考虑到安全，不推荐使用root帐号
 RUNNING_USER=root
@@ -83,7 +86,7 @@ start() {
       echo "================================"
    else
       echo -n "Starting $APP_NAME ..."
-	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE &
+	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE > $LOG_PATH/$APP_NAME+'_%Y-%m-$d'.log 2>&1 &
       checkpid
       if [ $psid -ne 0 ]; then
          echo "(pid=$psid) [OK]"
