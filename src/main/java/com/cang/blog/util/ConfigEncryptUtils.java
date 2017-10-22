@@ -16,7 +16,7 @@ public class ConfigEncryptUtils {
         // 获取加密参数
         encryptor.setPassword(pass);
 
-        System.out.println(encryptor.encrypt("test"));
-        System.out.println(encryptor.encrypt("a123456"));
+        System.out.println(encryptor.encrypt("root"));
+        System.out.println(encryptor.encrypt("admin"));
     }
 }
