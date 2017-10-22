@@ -38,7 +38,7 @@ RUNNING_USER=root
 APP_MAINCLASS=
 
 #java虚拟机启动参数
-JAVA_OPTS="-Xmx1024m -XX:PermSize=512m -XX:MaxPermSize=1024m -Djava.awt.headless=true"
+JAVA_OPTS="-Xmx1024m -Djava.awt.headless=true"
 
 psid=0
 
@@ -88,7 +88,7 @@ start() {
       echo -n "Starting $APP_NAME ..."
 	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE > $LOG_PATH/$APP_NAME"_"$(date "+%Y-%m-%d").log 2>&1 &
       echo "开始启动"
-      sleep 5s
+      sleep 8s
       checkpid
       if [ $psid -ne 0 ]; then
          echo "(pid=$psid) [OK]"
