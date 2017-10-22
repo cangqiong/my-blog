@@ -33,6 +33,8 @@
         <fastjson.version>1.2.39</fastjson.version>
         <guava.version>23.0</guava.version>
         <jjwt.version>0.7.0</jjwt.version>
+        <junit.version>4.12</junit.version>
+        <jasypt-spring-boot-starter.version>1.16</jasypt-spring-boot-starter.version>
 
         <!-- MyBatis Generator -->
         <!-- Java接口和实体类 -->
@@ -143,6 +145,25 @@
             <version>${jjwt.version}</version>
         </dependency>
 
+        <!--加密工具类-->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt-spring-boot-starter.version}</version>
+        </dependency>
+
+        <!-- 测试相关jar包 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -181,7 +202,29 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <finalName>my-blog</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>${basedir}/src/main/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
 </project>

@@ -2,6 +2,7 @@ package com.cang.blog.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,12 +29,20 @@ public class MybatisConfig {
     @Autowired
     private Environment environment;
 
+    private BasicTextEncryptor stringEncryptor = new BasicTextEncryptor();
+
     @Bean("druidDataSource")
     public DataSource duridDataSource() {
+
+        // 获取加密参数
+        stringEncryptor.setPassword(environment.getProperty("jasypt.encryptor.password"));
+
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(environment.getProperty("spring.datasource.url"));
-        druidDataSource.setUsername(environment.getProperty("spring.datasource.username"));
-        druidDataSource.setPassword(environment.getProperty("spring.datasource.password"));
+        String encoderUserName = environment.getProperty("spring.datasource.username");
+        druidDataSource.setUsername(stringEncryptor.decrypt(encoderUserName));
+        String encoderPass = environment.getProperty("spring.datasource.password");
+        druidDataSource.setPassword(stringEncryptor.decrypt(encoderPass));
         druidDataSource.setDriverClassName(environment.getProperty("spring.datasource.driverClassName"));
         druidDataSource.setMaxActive(Integer.parseInt(environment.getProperty("spring.datasource.maxActive")));
         druidDataSource.setInitialSize(Integer.parseInt(environment.getProperty("spring.datasource.initialSize")));
@@ -78,4 +87,5 @@ public class MybatisConfig {
     public DataSourceTransactionManager transactionManager(DataSource druidDataSource) {
         return new DataSourceTransactionManager(druidDataSource);
     }
+
 }
