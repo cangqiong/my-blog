@@ -88,7 +88,7 @@ start() {
       echo -n "Starting $APP_NAME ..."
 	  nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $APP_HOME/$APP_NAME.jar --spring.config.location=$CONFIG_FILE_PATH/$CONFIG_FILE >> $LOG_PATH/$APP_NAME"_"$(date "+%Y-%m-%d").log 2>&1 &
       echo "开始启动"
-      sleep 15s
+#      sleep 15s
       checkpid
       if [ $psid -ne 0 ]; then
          echo "(pid=$psid) [OK]"
