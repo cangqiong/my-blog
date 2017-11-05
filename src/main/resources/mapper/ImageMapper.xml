@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chason.blog.mapper.ImageMapper">
+  <resultMap id="BaseResultMap" type="com.chason.blog.entity.Image">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="image_id" jdbcType="INTEGER" property="imageId" />
+    <result column="image_type" jdbcType="VARCHAR" property="imageType" />
+    <result column="relative_path" jdbcType="VARCHAR" property="relativePath" />
+    <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    image_id, image_type, relative_path, upload_time, modify_time, is_deleted
+  </sql>
+</mapper>

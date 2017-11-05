@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chason.blog.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.chason.blog.entity.Comment">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="blog_id" jdbcType="INTEGER" property="blogId" />
+    <result column="target_id" jdbcType="INTEGER" property="targetId" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="check_status" jdbcType="CHAR" property="checkStatus" />
+    <result column="is_display" jdbcType="TINYINT" property="isDisplay" />
+    <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    comment_id, blog_id, target_id, comment_content, check_status, is_display, is_deleted
+  </sql>
+</mapper>

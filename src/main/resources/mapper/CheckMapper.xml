@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chason.blog.mapper.CheckMapper">
+  <resultMap id="BaseResultMap" type="com.chason.blog.entity.Check">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="check_id" jdbcType="INTEGER" property="checkId" />
+    <result column="check_type" jdbcType="VARCHAR" property="checkType" />
+    <result column="target_id" jdbcType="INTEGER" property="targetId" />
+    <result column="check_status" jdbcType="CHAR" property="checkStatus" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.chason.blog.entity.Check">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="target_content" jdbcType="LONGVARCHAR" property="targetContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    check_id, check_type, target_id, check_status, modify_time, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    target_content
+  </sql>
+</mapper>
