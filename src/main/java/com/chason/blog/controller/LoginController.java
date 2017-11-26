@@ -1,7 +1,7 @@
 package com.chason.blog.controller;
 
-import com.chason.blog.bean.UserLoginReq;
-import com.chason.blog.bean.UserLoginRes;
+import com.chason.blog.bean.ResultBean;
+import com.chason.blog.bean.req.UserLoginReq;
 import com.chason.blog.constant.SystemConstantEnum;
 import com.chason.blog.service.IUserService;
 import com.chason.blog.util.JwtTokenUtil;
@@ -24,7 +24,7 @@ import javax.validation.Valid;
  * @date 2017-10-07
  */
 @RestController
-@RequestMapping("/login")
+@RequestMapping( "/login" )
 public class LoginController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class LoginController {
     @Autowired
     private IUserService blogUserService;
 
-    @RequestMapping("/setcookie")
+    @RequestMapping( "/setcookie" )
     public String setCookie(HttpServletResponse response, HttpServletRequest request) {
         Cookie cookie1 = new Cookie("cookie1", "value1");
         cookie1.setMaxAge(1800);
@@ -50,26 +50,26 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public UserLoginRes login(@RequestBody @Valid UserLoginReq userLoginReq, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping( value = "/auth", method = RequestMethod.POST )
+    public ResultBean<String> login(@RequestBody @Valid UserLoginReq userLoginReq, HttpServletRequest request, HttpServletResponse response) {
 
-        UserLoginRes userLoginRes = new UserLoginRes();
+        ResultBean<String> result = new ResultBean<>();
 
         String error = blogUserService.validate(userLoginReq.getUsername(), userLoginReq.getPassword());
         // 登录成功
         if (StringUtils.isEmpty(error)) {
             // 生成JWT的Token
             String token = jwtTokenUtil.generateToken(userLoginReq.getUsername());
-            userLoginRes.setData(token);
+            result.setData(token);
 
             // 登录成功设置cookie
             response.addCookie(getJwtCookie(userLoginReq.getUsername(), token));
         } else {
-            userLoginRes.setMsg(error);
-            userLoginRes.setCode(SystemConstantEnum.getCodeByMsg(error));
+            result.setMsg(error);
+            result.setCode(SystemConstantEnum.getCodeByMsg(error));
         }
 
-        return userLoginRes;
+        return result;
     }
 
     private Cookie getJwtCookie(String username, String token) {

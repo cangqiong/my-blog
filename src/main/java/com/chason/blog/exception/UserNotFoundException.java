@@ -10,7 +10,7 @@ public class UserNotFoundException extends AppBaseException {
 
     private static final long serialVersionUID = 1923912283062464628L;
 
-    public UserNotFoundException(int code, String message) {
+    public UserNotFoundException(String code, String message) {
         super(code, message);
     }
 

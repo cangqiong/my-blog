@@ -87,6 +87,7 @@
         <table tableName="%" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
             <columnOverride column="is_display" javaType="Boolean"/>
+            <columnOverride column="content_type" javaType="Integer"/>
             <columnOverride column="is_deleted" javaType="Boolean"/>
             <columnOverride column="is_reproduced" javaType="Boolean"/>
             <columnOverride column="is_finished" javaType="Boolean"/>

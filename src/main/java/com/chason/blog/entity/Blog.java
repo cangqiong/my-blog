@@ -24,6 +24,12 @@ public class Blog {
     private String blogStatus;
 
     /**
+     * 内容格式，0是markdown还是html格式
+     */
+    @Column(name = "content_type")
+    private Integer contentType;
+
+    /**
      * 是否是转载内容
      */
     @Column(name = "is_reproduced")
@@ -105,6 +111,24 @@ public class Blog {
      */
     public void setBlogStatus(String blogStatus) {
         this.blogStatus = blogStatus;
+    }
+
+    /**
+     * 获取内容格式，0是markdown还是html格式
+     *
+     * @return content_type - 内容格式，0是markdown还是html格式
+     */
+    public Integer getContentType() {
+        return contentType;
+    }
+
+    /**
+     * 设置内容格式，0是markdown还是html格式
+     *
+     * @param contentType 内容格式，0是markdown还是html格式
+     */
+    public void setContentType(Integer contentType) {
+        this.contentType = contentType;
     }
 
     /**

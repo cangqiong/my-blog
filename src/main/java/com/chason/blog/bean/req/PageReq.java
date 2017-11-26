@@ -1,4 +1,4 @@
-package com.chason.blog.bean;
+package com.chason.blog.bean.req;
 
 /**
  * 分页请求

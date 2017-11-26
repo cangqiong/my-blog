@@ -8,29 +8,34 @@ package com.chason.blog.constant;
  */
 public enum SystemConstantEnum {
 
-    SUCCESS(200, "响应成功"),
-    USER_NOT_FOUND(400, "用户不存在"),
-    NOT_LOGIN(401, "请登陆之后进行操作"),
-    PASS_NOT_CORRECT(402, "密码不正确");
+    SUCCESS("000000", "响应成功"),
+    USER_NOT_FOUND("400000", "用户不存在"),
+    NOT_LOGIN("400001", "请登陆之后进行操作"),
+    ADD_FAIURE("400002", "新增失败"),
+    UPDATE_FAIURE("400003", "更新失败"),
+    QUERY_FAIURE("400004", "查询失败"),
+    DELETE_FAIURE("400005", "删除失败"),
+    PASS_NOT_CORRECT("400006", "密码不正确"),
+    SYSTEM_ERROR("999999", "系统错误");
 
-    private int code;
+    private String code;
     private String msg;
 
-    SystemConstantEnum(int code, String msg) {
+    SystemConstantEnum(String code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public static int getCodeByMsg(String msg) {
+    public static String getCodeByMsg(String msg) {
         for (SystemConstantEnum codeConstantEnum : SystemConstantEnum.values()) {
             if (codeConstantEnum.getMsg().equals(msg)) {
                 return codeConstantEnum.getCode();
             }
         }
-        return -1;
+        return "-1";
     }
 
-    public static String getMsgByCode(int code) {
+    public static String getMsgByCode(String code) {
         for (SystemConstantEnum systemConstantEnum : SystemConstantEnum.values()) {
             if (systemConstantEnum.getCode() == code) {
                 return systemConstantEnum.getMsg();
@@ -39,11 +44,11 @@ public enum SystemConstantEnum {
         return "无法找到该代码对应的消息";
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

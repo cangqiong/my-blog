@@ -1,6 +1,7 @@
 package com.chason.blog.exception;
 
 import com.chason.blog.bean.ResultBean;
+import com.chason.blog.constant.SystemConstantEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -59,7 +60,7 @@ public class GlobalExceptionHandler {
         logger.error(ex.toString());
 
         ResultBean resultBean = new ResultBean();
-        resultBean.setCode(400);
+        resultBean.setCode(SystemConstantEnum.SYSTEM_ERROR.getCode());
         resultBean.setMsg(ex.getMessage());
 
         return resultBean;

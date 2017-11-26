@@ -1,6 +1,6 @@
 package com.chason.blog.service;
 
-import com.chason.blog.bean.PageReq;
+import com.chason.blog.bean.req.PageReq;
 import com.chason.blog.bean.QueryResult;
 import com.chason.blog.entity.Todolist;
 import com.chason.blog.exception.UserNotFoundException;

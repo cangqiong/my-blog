@@ -1,14 +1,15 @@
 package com.chason.blog.service;
 
 import com.chason.blog.annotation.Authorization;
-import com.chason.blog.bean.PageReq;
 import com.chason.blog.bean.QueryResult;
+import com.chason.blog.bean.req.PageReq;
 import com.chason.blog.constant.SystemConstantEnum;
 import com.chason.blog.entity.Todolist;
 import com.chason.blog.entity.User;
 import com.chason.blog.exception.UserNotFoundException;
 import com.chason.blog.mapper.TodolistMapper;
 import com.chason.blog.mapper.UserMapper;
+import com.chason.blog.util.PageUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,7 +83,7 @@ public class TodolistService implements ITodolistService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional( readOnly = true )
     public QueryResult<Todolist> query(String userName, PageReq pageReq) throws UserNotFoundException {
 
         User user = userMapper.selectByUserName(userName);
@@ -96,7 +97,7 @@ public class TodolistService implements ITodolistService {
         blogTodolist.setUserId(user.getUserId());
 
         queryResult.setCount(getCount(blogTodolist, user));
-        RowBounds rowBounds = getRowBounds(pageReq);
+        RowBounds rowBounds = PageUtils.getRowBounds(pageReq);
         List<Todolist> queryBlogTodoLists = todolistMapper.selectByRowBounds(blogTodolist, rowBounds);
 
         queryResult.setRecords(queryBlogTodoLists);
@@ -121,29 +122,5 @@ public class TodolistService implements ITodolistService {
         return todolistMapper.selectCount(blogTodolist);
     }
 
-    /**
-     * 获取Mybatis的行查询的区间
-     *
-     * @param pageReq
-     * @return
-     */
-    private RowBounds getRowBounds(PageReq pageReq) {
 
-        // 没有分页信息，默认返回前10条数据
-        if (pageReq == null) {
-            return new RowBounds(0, 10);
-        }
-        if (pageReq.getPageNum() == null || pageReq.getPageNum() <= 0) {
-            pageReq.setPageNum(1);
-        }
-
-        if (pageReq.getPageSize() == null) {
-            pageReq.setPageSize(10);
-        }
-
-        int offset = (pageReq.getPageNum() - 1) * pageReq.getPageSize();
-        int limit = offset + pageReq.getPageSize();
-
-        return new RowBounds(offset, limit);
-    }
 }

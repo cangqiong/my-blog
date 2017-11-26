@@ -1,4 +1,4 @@
-package com.chason.blog.bean;
+package com.chason.blog.bean.req;
 
 import org.hibernate.validator.constraints.NotBlank;
 

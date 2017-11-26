@@ -8,7 +8,7 @@ package com.chason.blog.exception;
  */
 public class NotLoginException extends AppBaseException {
 
-    public NotLoginException(int code, String message) {
+    public NotLoginException(String code, String message) {
         super(code, message);
     }
 

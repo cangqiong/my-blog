@@ -40,7 +40,7 @@ public class JwtTokenUtil {
 
     private String generateToken(Map<String, Object> claims, String subject) {
 
-        final Date createdDate = DateUtil.now();
+        final Date createdDate = DateUtils.getNow();
 
         String compactJwt = Jwts.builder()
                 .setSubject(subject)
@@ -86,7 +86,7 @@ public class JwtTokenUtil {
 
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(DateUtil.now());
+        return expiration.before(DateUtils.getNow());
     }
 
     public Date getExpirationDateFromToken(String token) {

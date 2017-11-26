@@ -11,11 +11,11 @@ public class AppBaseException extends RuntimeException {
     private static final long serialVersionUID = 5678142353787803120L;
 
     //异常对应的返回码
-    private int code;
+    private String code;
     //异常对应的描述信息
     private String message;
 
-    public AppBaseException(int code, String message) {
+    public AppBaseException(String code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -29,11 +29,11 @@ public class AppBaseException extends RuntimeException {
         this.message = message;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
