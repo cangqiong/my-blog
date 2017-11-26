@@ -1,4 +1,4 @@
-package com.chason.blog;
+package com.chason.blog.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
