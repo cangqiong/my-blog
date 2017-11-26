@@ -20,16 +20,18 @@ USE `blog`;
 /*Table structure for table `blog` */
 
 CREATE TABLE `blog` (
-  `blog_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '博客ID',
-  `blog_title` varchar(64) NOT NULL COMMENT '博客标题',
-  `blog_content` text NOT NULL COMMENT '博客内容',
-  `blog_status` char(1) NOT NULL DEFAULT '0' COMMENT '博客状态(0:新建,1:发表,2:个人)',
-  `is_reproduced` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否是转载内容',
-  `modify_time` datetime NOT NULL COMMENT '修改时间',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除状态(0:未删除,1:已删除)',
+  `blog_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '博客ID',
+  `blog_title` VARCHAR(64) NOT NULL COMMENT '博客标题',
+  `blog_content` TEXT NOT NULL COMMENT '博客内容',
+  `content_type` TINYINT(1) DEFAULT '0' COMMENT '内容格式，0是markdown还是html格式',
+  `blog_status` CHAR(1) NOT NULL DEFAULT '0' COMMENT '博客状态(0:新建,1:发表,2:个人)',
+  `is_reproduced` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '是否是转载内容',
+  `modify_time` DATETIME NOT NULL COMMENT '修改时间',
+  `create_time` DATETIME NOT NULL COMMENT '创建时间',
+  `is_deleted` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '删除状态(0:未删除,1:已删除)',
   PRIMARY KEY (`blog_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='博客主体表';
+) ENGINE=INNODB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='博客主体表'
+
 
 /*Table structure for table `check` */
 
