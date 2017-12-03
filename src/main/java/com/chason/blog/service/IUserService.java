@@ -1,7 +1,6 @@
 package com.chason.blog.service;
 
 import com.chason.blog.entity.User;
-import com.chason.blog.exception.UserNotFoundException;
 
 /**
  * 用户服务接口类
@@ -15,5 +14,5 @@ public interface IUserService {
 
     User findByUserId(int userId);
 
-    String validate(String username, String password) throws UserNotFoundException;
+    void validate(String username, String password);
 }

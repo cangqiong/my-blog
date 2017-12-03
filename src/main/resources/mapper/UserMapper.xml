@@ -16,7 +16,7 @@
     <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM blog_user
+        FROM user
         WHERE
         user_name = #{userName}
     </select>

@@ -30,6 +30,7 @@ public class BlogController {
     private IBlogService blogService;
 
     @RequestMapping( value = "/add", method = RequestMethod.POST )
+    @Authorization
     public ResultBean<Integer> addBlog(@RequestBody @Valid AddBlogReq addTodoListReq) {
 
         ResultBean<Integer> result = new ResultBean<>();
@@ -41,6 +42,7 @@ public class BlogController {
     }
 
     @RequestMapping( value = "/update", method = RequestMethod.POST )
+    @Authorization
     public ResultBean<Boolean> updateBlog(@RequestBody @Valid UpdateBlogReq updateBlogReq) {
 
         ResultBean<Boolean> resultBean = new ResultBean<>();
@@ -60,7 +62,6 @@ public class BlogController {
     }
 
     @RequestMapping( value = "/queryBlogList", method = RequestMethod.GET )
-    @Authorization
     public ResultBean<QueryResult<Blog>> queryBlogList(@NotNull( message = "分页信息不能为空" ) PageReq pageReq) throws Exception {
 
         ResultBean<QueryResult<Blog>> basicRes = new ResultBean<>();
@@ -73,7 +74,6 @@ public class BlogController {
     }
 
     @RequestMapping( value = "/query/{blogId}", method = RequestMethod.GET )
-    @Authorization
     public ResultBean<Blog> queryTodoList(@NotNull @PathVariable( "blogId" ) Integer blogId) throws Exception {
 
         ResultBean<Blog> basicRes = new ResultBean<>();

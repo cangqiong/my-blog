@@ -38,14 +38,17 @@ public class JwtTokenUtil {
         return new Date(createdDate.getTime() + expiration * 1000);
     }
 
+    // 默认失效时间为1天
     private String generateToken(Map<String, Object> claims, String subject) {
 
-        final Date createdDate = DateUtils.getNow();
+//        final Date createdDate = DateUtils.getNow();
+
+        long endTime = new Date().getTime() + 1000 * 60 * 1440;
 
         String compactJwt = Jwts.builder()
                 .setSubject(subject)
                 .signWith(SignatureAlgorithm.HS512, secret)
-                .setExpiration(calculateExpirationDate(createdDate))
+                .setExpiration(calculateExpirationDate(new Date(endTime)))
 //                .setAudience()
 //                .setClaims(claims)
                 .compact();
@@ -72,7 +75,7 @@ public class JwtTokenUtil {
         return (
                 username.equals(user.getUserName())
                         && !isTokenExpired(token)
-                        && !isCreatedBeforeLastPasswordReset(created, user.getModifyTime())
+//                        && !isCreatedBeforeLastPasswordReset(created, user.getModifyTime())
         );
     }
 

@@ -83,17 +83,17 @@ public class BlogService implements IBlogService {
         return blogMapper.selectByPrimaryKey(blogId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public QueryResult<Blog> queryBlogList(PageReq pageReq) {
 
         QueryResult<Blog> queryResult = new QueryResult<>();
 
-        Blog blog = new Blog();
         RowBounds rowBounds = PageUtils.getRowBounds(pageReq);
 
-        List<Blog> blogList = blogMapper.selectByRowBounds(blog, rowBounds);
+        List<Blog> blogList = blogMapper.selectBlogList(rowBounds.getOffset(),rowBounds.getLimit());
         queryResult.setRecords(blogList);
+        Blog blog = new Blog();
         int count = blogMapper.selectCount(blog);
         queryResult.setCount(count);
 

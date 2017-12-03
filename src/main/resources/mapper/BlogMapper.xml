@@ -30,7 +30,7 @@
         (#{blogTitle},#{blogContent},#{contentType},#{createTime},#{modifyTime})
     </insert>
 
-    <select id="searchByTitle" parameterType="java.lang.Integer">
+    <select id="searchByTitle">
         SELECT
         <include refid="Base_Column_List"/>
         FROM
@@ -40,13 +40,24 @@
         LIMIT #{rowBounds.offset},#{rowBounds.limit}
     </select>
 
+    <select id="selectBlogList" resultMap="BaseResultMap" parameterType="org.apache.ibatis.session.RowBounds">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        blog
+        ORDER BY modify_time DESC
+        <if test="offset != null and limit != null">
+            LIMIT #{offset},#{limit}
+        </if>
+    </select>
 
-    <select id="searchKeyCount" parameterType="java.lang.Integer">
+
+    <select id="searchKeyCount" parameterType="java.lang.String">
         SELECT
             count(*)
         FROM
           blog
         WHERE
-         blog_titie  LIKE CONCAT('%',#{searchKey},'%')
+         blog_titie LIKE CONCAT('%',#{searchKey},'%')
     </select>
 </mapper>

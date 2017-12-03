@@ -1,12 +1,14 @@
 package com.chason.blog.service;
 
-import com.chason.blog.constant.SystemConstantEnum;
 import com.chason.blog.entity.User;
 import com.chason.blog.exception.UserNotFoundException;
 import com.chason.blog.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.chason.blog.constant.SystemConstantEnum.PASS_NOT_CORRECT;
+import static com.chason.blog.constant.SystemConstantEnum.USER_NOT_FOUND;
 
 /**
  * 用户服务类
@@ -28,19 +30,17 @@ public class UserService implements IUserService {
      * @return
      */
     @Override
-    @Transactional(readOnly = true)
-    public String validate(String username, String password) throws UserNotFoundException {
+    @Transactional( readOnly = true )
+    public void validate(String username, String password) {
 
         User user = findByUsername(username);
 
         if (user == null) {
-            throw new UserNotFoundException(SystemConstantEnum.USER_NOT_FOUND.getCode(), username);
+            throw new UserNotFoundException(USER_NOT_FOUND.getCode(), USER_NOT_FOUND.getMsg());
         }
 
         if (password == null || !user.getPassword().equals(password)) {
-            return SystemConstantEnum.PASS_NOT_CORRECT.getMsg();
-        } else {
-            return null;
+            throw new UserNotFoundException(PASS_NOT_CORRECT.getCode(), PASS_NOT_CORRECT.getMsg());
         }
     }
 

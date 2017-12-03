@@ -15,5 +15,8 @@ public interface BlogMapper extends Mapper<Blog> {
 
     List<Blog> searchByTitle(@Param( "searchKey" ) String searchKey, @Param( "rowBounds" ) RowBounds rowBounds);
 
+    List<Blog> selectBlogList(@Param( "offset" ) int offset, @Param( "limit" ) int limit);
+
     int searchKeyCount(String searchKey);
+
 }

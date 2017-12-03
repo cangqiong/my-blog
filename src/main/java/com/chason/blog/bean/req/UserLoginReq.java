@@ -8,21 +8,21 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class UserLoginReq {
 
-    @NotBlank(message = "用户名不能为空")
-    private String username;
+    @NotBlank( message = "用户名不能为空" )
+    private String userName;
 
-    @NotBlank(message = "密码不能为空")
+    @NotBlank( message = "密码不能为空" )
     private String password;
 
     // 验证码
-    private String VerifCode;
+    private String verifCode;
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -34,10 +34,10 @@ public class UserLoginReq {
     }
 
     public String getVerifCode() {
-        return VerifCode;
+        return verifCode;
     }
 
     public void setVerifCode(String verifCode) {
-        VerifCode = verifCode;
+        this.verifCode = verifCode;
     }
 }
